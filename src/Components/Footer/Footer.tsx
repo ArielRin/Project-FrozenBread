@@ -99,7 +99,7 @@ const Footer: React.FC = () => {
                       <Box width="300px" padding="5px">
 
                       </Box>
-                      {/* Repeat the Box with different content as needed for each column */}
+                    
                   </SimpleGrid>
                   <ChakraLink href="toastecosystem.online" isExternal>
                     <Image src={toastLogo} alt="Description of Image" width="220px"  />
@@ -108,10 +108,10 @@ const Footer: React.FC = () => {
 
 
                                       <Box
-                                        bg="rgba(0,0,0,0)" // Choose your desired background color
-                                        padding="20px" // Apply padding inside the box
-                                        width="100%" // Set the width of the box
-                                        mx="auto" // Center the box
+                                        bg="rgba(0,0,0,0)"
+                                        padding="20px"
+                                        width="100%"
+                                        mx="auto"
                                         marginTop="120px"
                                       >
                                       </Box>
@@ -122,10 +122,3 @@ const Footer: React.FC = () => {
     };
 
     export default Footer;
-
-// <span>
-//     Follow us on
-//     <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" style={{ color: 'white', margin: '0 10px' }}>Twitter</a>,
-//     <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" style={{ color: 'white', margin: '0 10px' }}>Facebook</a>,
-//     <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" style={{ color: 'white', margin: '0 10px' }}>Instagram</a>
-// </span>

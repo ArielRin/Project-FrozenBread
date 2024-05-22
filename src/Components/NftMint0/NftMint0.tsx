@@ -30,8 +30,7 @@ import MainTextLogo from './headerLogo.png';
 const NFTMINT_CONTRACT_ADDRESS = '0x6aD7cCE6eF4AC1EaB35c6e0068B5adCf8561870D';
 
 const getExplorerLink = () => `https://scan.maxxchain.org/address/${NFTMINT_CONTRACT_ADDRESS}`;
-
-// const getExplorerLink = () => `https://bscscan.com/token/${NFTMINT_CONTRACT_ADDRESS}`;
+// const getExplorerLink = () => `https://bscscan.com/address/${NFTMINT_CONTRACT_ADDRESS}`;
 
 
 function NftMint() {
@@ -154,7 +153,7 @@ function NftMint() {
        <div className="header-logo">
 
          <ChakraLink href="toastecosystem.online" isExternal>
-           <Image src={toastLogo} alt="Description of Image" width="220px"  />
+           <Image src={toastLogo} alt="Toast Logo" width="220px"  />
          </ChakraLink>
        </div>
        <div className="connect-button">
@@ -186,10 +185,10 @@ function NftMint() {
       >
 
       <Box
-        bg="rgba(0,0,0,0)" // Choose your desired background color
-        padding="20px" // Apply padding inside the box
-        width="100%" // Set the width of the box
-        mx="auto" // Center the box
+        bg="rgba(0,0,0,0)"
+        padding="20px"
+        width="100%"
+        mx="auto"
         marginTop="60px"
       >
       </Box>
@@ -200,7 +199,7 @@ function NftMint() {
         padding="20px"
         maxW="600px"
         mx="auto"
-        my="20px" // Optional: additional vertical margin outside the box
+        my="20px"
       >
           <div>
 
@@ -266,10 +265,10 @@ function NftMint() {
               </Box>
 
               <Box
-                bg="rgba(0,0,0,0)" // Choose your desired background color
-                padding="20px" // Apply padding inside the box
-                width="100%" // Set the width of the box
-                mx="auto" // Center the box
+                bg="rgba(0,0,0,0)"
+                padding="20px"
+                width="100%"
+                mx="auto"
                 marginTop="60px"
               >
                   <Image src={toastmanImage} mx="auto" alt="Description of Image" width="220px"  />
