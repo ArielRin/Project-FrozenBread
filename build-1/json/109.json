@@ -1,0 +1,15 @@
+{
+  "name": "Toast Champions #109",
+  "description": "Welcome to a crispy world where greatness rises from the warmth of the toaster! The Toasty Champions NFT Collection celebrates iconic figures across diverse careers, all crafted from golden-brown slices of destiny.",
+  "image": "ipfs://QmbqDxANYxV14yYgDzevtP6c2gAjdkeHyNFypCZ2g6cLpa/109.png",
+  "dna": "c69cf012c3957fa3216844fa2951d5e6c281d083",
+  "edition": 109,
+  "date": 1716248880625,
+  "attributes": [
+    {
+      "trait_type": "toastchamps",
+      "value": "soldiertoast1"
+    }
+  ],
+  "compiler": "HashLips Art Engine"
+}

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Mint from './Components/NftMint0/NftMint0';
+import Viewer from './Components/NFTViewer/NFTViewer';
+
+
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 import {
@@ -32,6 +35,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Mint />} />
+          <Route path="/viewnfts" element={<Viewer />} />
 
       </Routes>
     </Router>

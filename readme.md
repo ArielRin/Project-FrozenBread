@@ -1,1 +1,1 @@
-# TOASTY Minting Dapp 
+# TOASTIES Minting Dapp 
