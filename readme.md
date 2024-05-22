@@ -1,1 +1,1 @@
-# Anunaki NFTs Minting Dapp 
+# TOASTY Minting Dapp 
