@@ -36,12 +36,12 @@ const addNftToWallet = async (tokenId: number) => {
       options: {
         address: NFTMINT_CONTRACT_ADDRESS,
         tokenId: tokenId.toString(),
-        symbol: 'TOASTIES', 
+        symbol: 'TOASTIES',
         image: `https://raw.githubusercontent.com/ArielRin/Project-FrozenBread/master/build-1/images/${tokenId}.png`
       },
     };
 
-    await provider.send('wallet_watchAsset', asset);
+    await provider.send('wallet_watchAsset', [asset]);
     console.log('Asset added');
   } catch (error) {
     console.error('Error adding NFT to wallet', error);
