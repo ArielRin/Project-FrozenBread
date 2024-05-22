@@ -36,9 +36,8 @@ const addNftToWallet = async (tokenId: number) => {
       options: {
         address: NFTMINT_CONTRACT_ADDRESS,
         tokenId: tokenId.toString(),
-        symbol: 'TOASTIES', // Example symbol, adjust as needed
-        // image: `https://ipfs.io/ipfs/${tokenId}`, // Example image URL, adjust as needed
-        // Add other metadata as required
+        symbol: 'TOASTIES', 
+        image: `https://raw.githubusercontent.com/ArielRin/Project-FrozenBread/master/build-1/images/${tokenId}.png`
       },
     };
 
@@ -157,7 +156,7 @@ function MyNfts() {
               <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing="10px">
                 {nfts.map((tokenId) => (
                   <Box key={tokenId} bg="rgba(0, 0, 0, 1)" p="4" borderRadius="md">
-                    <Image src={`https://ipfs.io/ipfs/${tokenId}`} alt={`NFT ${tokenId}`} />
+                    <Image src={`https://raw.githubusercontent.com/ArielRin/Project-FrozenBread/master/build-1/images/${tokenId}.png`} alt={`NFT ${tokenId}`} />
                     <Text mt="2" color="white" textAlign="center">Toasties TokenId {tokenId}</Text>
                     <Link href={getMarketplaceLink(tokenId)} isExternal>
                       <Button

@@ -57,7 +57,7 @@ function NftMint() {
 
   useEffect(() => {
     fetchContractData();
-    const interval = setInterval(fetchContractData, 30000); // Refresh every 30 seconds
+    const interval = setInterval(fetchContractData, 30000);
     return () => clearInterval(interval);
   }, []);
 
@@ -117,11 +117,9 @@ function NftMint() {
   try {
     const tx = await mint();
     await tx.wait();
-    // ... [handle the successful mint case] ...
-    fetchContractData(); // Refresh data after mint
+    fetchContractData();
   } catch (error: unknown) {
     console.error('Minting error:', error);
-    // Use type assertion to treat the error as a ContractError
     const contractError = error as ContractError;
     const errorMessage = contractError.data ? contractError.data.message : 'An unknown error occurred.';
     toast({
