@@ -44,7 +44,7 @@ function NftMint() {
     functionName: 'mint',
     args: [mintAmount],
     overrides: {
-      value: ethers.utils.parseEther((MINT_PRICE * mintAmount).toString()), // Adjusted mint price
+      value: ethers.utils.parseEther((MINT_PRICE * mintAmount).toString()), 
     },
   });
 
