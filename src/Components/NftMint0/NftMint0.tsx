@@ -20,7 +20,7 @@ import mainbackgroundImage from "./bg2.png";
 import toastmanImage from "./toastmanImage.png";
 import toastLogo from "../Footer/logos/logotoast.png";
 
-const MINT_PRICE = 0.04;
+const MINT_PRICE = 0.00004;
 const MINT_SUPPLY = 150;
 const NFTMINT_CONTRACT_ADDRESS = '0x6F6712296fc77964a31b04d587eac42a3B16e711';
 
@@ -44,7 +44,7 @@ function NftMint() {
     functionName: 'mint',
     args: [mintAmount],
     overrides: {
-      value: ethers.utils.parseEther((MINT_PRICE * mintAmount).toString()), 
+      value: ethers.utils.parseEther((MINT_PRICE * mintAmount).toString()),
     },
   });
 
