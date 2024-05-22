@@ -1,11 +1,12 @@
 
 // @CMH ICE PUT VAVIABLES AT TOP FOR EASE USE
-const MAX_SUPPLY = 150;
-const MINT_PRICE = 0.04;
+const MAX_SUPPLY = '150';
+const MINT_PRICE = '0.04';
+const NFT_NAME = 'Toast Champions NFT Collection';
+const NFT_SYMBOL = 'TOASTY';
 const NFTMINT_CONTRACT_ADDRESS = '0x6aD7cCE6eF4AC1EaB35c6e0068B5adCf8561870D';
+const NETWORK_CHAIN_RPC = 'https://mainrpc.maxxchain.org/';
 const getExplorerLink = () => `https://scan.maxxchain.org/address/${NFTMINT_CONTRACT_ADDRESS}`;
-
-
 
 // @CMH ICE THE IMPORTS ARE BELOW
 
@@ -91,7 +92,7 @@ function NftMint() {
 
     try {
       setLoading(true);
-      const provider = new ethers.providers.JsonRpcProvider('https://mainrpc.maxxchain.org/');
+      const provider = new ethers.providers.JsonRpcProvider(NETWORK_CHAIN_RPC);
       const contract = new ethers.Contract(NFTMINT_CONTRACT_ADDRESS, nftMintAbi, provider);
       const supply = await contract.totalSupply();
       setTotalSupply(supply.toNumber());
@@ -232,8 +233,11 @@ function NftMint() {
           >
             <div>
               <Text className="pricecosthead" style={{ color: 'white', textAlign: 'center', fontWeight: 'bolder' }}>
-                Toast Champions NFT Collection
+                {NFT_NAME}
               </Text>
+                <Text className="totalSupply" style={{ color: 'white', textAlign: 'center', fontWeight: 'bolder' }}>
+                  ${NFT_SYMBOL}
+                </Text>
               <Text className="totalSupply" style={{ color: 'white', padding: '10px', textAlign: 'center', fontWeight: 'bold' }}>
                 {loading ? 'Loading...' : `Sold : ${totalSupply} / ${maxSupply}`}
               </Text>
@@ -299,7 +303,7 @@ function NftMint() {
           >
             <Image src={toastmanImage} mx="auto" alt="Description of Image" width="220px" />
           </Box>
-          // @CMH THIS FOOTER IS REFERENCED FROM COMPONENTS
+          {/* @CMH THIS FOOTER IS REFERENCED FROM COMPONENTS */}
           <Footer />
         </Box>
       </Box>

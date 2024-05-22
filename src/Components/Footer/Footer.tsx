@@ -108,19 +108,22 @@ const Footer: React.FC = () => {
                   <span>&copy; {currentYear} Toast Champions NFT Collection.</span>
 
 
+                <Flex direction="column" alignItems="center">
                   <Box
                     bg="rgba(0,0,0,0)"
-                    padding="20px"
                     width="100%"
-                    mx="auto"
                     marginTop="40px"
                   >
-                                                        <ChakraLink href="https://alpha7.live" isExternal>
-                                                          <Image align="center" src={devlogo} alt="Dapp created by the Alpha7 Team." width="25px"  />
-                                                        </ChakraLink>
-
+                      <ChakraLink href="https://alpha7.live" isExternal>
+                        <Image  src={devlogo} alt="Dapp created by the Alpha7 Team." width="45px"  />
+                      </ChakraLink>
                   </Box>
-                                    
+
+                </Flex>
+
+                                    <Text  style={{ color: 'white', textAlign:  'center', fontSize: '6px', fontWeight: 'normal', marginTop: '6px' }}>
+                                      Dapp created by the Alpha7 Team.
+                                    </Text>
 
               </Flex>
           </footer>
