@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import Web3 from 'web3';
-import { useAccount, useContractRead, useContractWrite } from 'wagmi';
-
+import { useAccount, useContractWrite } from 'wagmi';
 import {
   Box,
   Button,
   Image,
   Text,
   Link,
-  Container,
-  Link as ChakraLink,
   useToast,
 } from '@chakra-ui/react';
 
@@ -19,19 +15,14 @@ import Footer from '../Footer/Footer';
 
 import './mintNftStyles.css';
 
-
 import nftMintAbi from './nftMintAbi.json';
 import mainbackgroundImage from "./bg2.png";
 import toastmanImage from "./toastmanImage.png";
 import toastLogo from "../Footer/logos/logotoast.png";
-import MainTextLogo from './headerLogo.png';
-
-
-const NFTMINT_CONTRACT_ADDRESS = '0x6aD7cCE6eF4AC1EaB35c6e0068B5adCf8561870D';
-
-const getExplorerLink = () => `https://scan.maxxchain.org/address/${NFTMINT_CONTRACT_ADDRESS}`;
-// const getExplorerLink = () => `https://bscscan.com/address/${NFTMINT_CONTRACT_ADDRESS}`;
-
+const MINT_PRICE = '0.000004';
+const MINT_SUPPLY = '150';
+const NFTMINT_CONTRACT_ADDRESS = '0x6F6712296fc77964a31b04d587eac42a3B16e711';
+const getExplorerLink = () => `https://bscscan.com/address/${NFTMINT_CONTRACT_ADDRESS}`;
 
 function NftMint() {
   const { address, isConnected } = useAccount();
@@ -51,7 +42,7 @@ function NftMint() {
     functionName: 'mint',
     args: [mintAmount],
     overrides: {
-      value: ethers.utils.parseEther((0.04 * mintAmount).toString()),
+      value: ethers.utils.parseEther((MINT_PRICE * mintAmount).toString()), // Adjusted mint price
     },
   });
 
@@ -75,7 +66,7 @@ function NftMint() {
 
     try {
       setLoading(true);
-      const provider = new ethers.providers.JsonRpcProvider('https://mainrpc.maxxchain.org/');
+      const provider = new ethers.providers.JsonRpcProvider('https://bsc-dataseed.binance.org/');
       const contract = new ethers.Contract(NFTMINT_CONTRACT_ADDRESS, nftMintAbi, provider);
       const supply = await contract.totalSupply();
       setTotalSupply(supply.toNumber());
@@ -93,13 +84,11 @@ function NftMint() {
     }
   };
 
-
   interface ContractError extends Error {
-  data?: {
-    message: string;
-  };
-}
-
+    data?: {
+      message: string;
+    };
+  }
 
   const onMintClick = async () => {
     if (!isConnected) {
@@ -114,171 +103,174 @@ function NftMint() {
     }
 
     setMintLoading(true);
-  try {
-    const tx = await mint();
-    await tx.wait();
-    fetchContractData();
-  } catch (error: unknown) {
-    console.error('Minting error:', error);
-    const contractError = error as ContractError;
-    const errorMessage = contractError.data ? contractError.data.message : 'An unknown error occurred.';
-    toast({
-      title: 'Minting Error',
-      description: errorMessage,
-      status: 'error',
-      duration: 5000,
-      isClosable: true,
-    });
-  } finally {
-    setMintLoading(false);
-  }
-};
+    try {
+      const tx = await mint();
+      await tx.wait();
+      fetchContractData();
+    } catch (error: unknown) {
+      console.error('Minting error:', error);
+      const contractError = error as ContractError;
+      const errorMessage = contractError.data ? contractError.data.message : 'An unknown error occurred.';
+      toast({
+        title: 'Minting Error',
+        description: errorMessage,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+    } finally {
+      setMintLoading(false);
+    }
+  };
 
   const handleIncrement = () => {
-    setMintQuantity((prev) => prev + 1);
+    setMintQuantity((prev) => Math.min(prev + 1, 5));
   };
 
   const handleDecrement = () => {
     setMintQuantity((prev) => Math.max(prev - 1, 1));
   };
 
-  const maxSupply = 150;
+  const maxSupply = MINT_SUPPLY;
   const remainingSupply = maxSupply - totalSupply;
 
   return (
     <>
-    <header >
-       <div className="header-logo">
-
-         <ChakraLink href="toastecosystem.online" isExternal>
-           <Image src={toastLogo} alt="Toast Logo" width="220px"  />
-         </ChakraLink>
-       </div>
-       <div className="connect-button">
-         <ConnectButton />
-       </div>
-    </header>
-    <Box
-      flex={1}
-      p={0}
-      m={0}
-      display="flex"
-      flexDirection="column"
-      bg="rgba(0, 0, 0, 1)"
-      bgImage={`url(${mainbackgroundImage})`}
-      bgPosition="center"
-      bgRepeat="no-repeat"
-      bgSize="cover"
-    >
+      <header>
+        <div className="header-logo">
+          <Link href="/" isExternal>
+            <Image src={toastLogo} alt="Toast Logo" width="220px" />
+          </Link>
+        </div>
+        <div className="connect-button">
+          <ConnectButton />
+        </div>
+      </header>
       <Box
         flex={1}
         p={0}
         m={0}
         display="flex"
         flexDirection="column"
-        bg="rgba(0, 0, 0, 0.5)"
+        bg="rgba(0, 0, 0, 1)"
+        bgImage={`url(${mainbackgroundImage})`}
         bgPosition="center"
         bgRepeat="no-repeat"
         bgSize="cover"
       >
+        <Box
+          flex={1}
+          p={0}
+          m={0}
+          display="flex"
+          flexDirection="column"
+          bg="rgba(0, 0, 0, 0.5)"
+          bgPosition="center"
+          bgRepeat="no-repeat"
+          bgSize="cover"
+        >
+          <Box
+            bg="rgba(0,0,0,0)"
+            padding="20px"
+            width="100%"
+            mx="auto"
+            marginTop="60px"
+          ></Box>
 
-      <Box
-        bg="rgba(0,0,0,0)"
-        padding="20px"
-        width="100%"
-        mx="auto"
-        marginTop="60px"
-      >
-      </Box>
-
-      <Box
-        bg="rgba(0,0,0,0.6)"
-        borderRadius="md"
-        padding="20px"
-        maxW="600px"
-        mx="auto"
-        my="20px"
-      >
-          <div>
-
-                <Text className="pricecosthead" style={{color: 'white', textAlign: 'center', fontWeight: 'bolder' }}>
-                  Toast Champions NFT Collection
+          <Box
+            bg="rgba(0,0,0,0.6)"
+            borderRadius="md"
+            padding="20px"
+            maxW="600px"
+            mx="auto"
+            my="20px"
+          >
+            <div>
+              <Text className="pricecosthead" style={{ color: 'white', textAlign: 'center', fontWeight: 'bolder' }}>
+                Toast Champions NFT Collection
+              </Text>
+              <Text className="totalSupply" style={{ color: 'white', padding: '10px', textAlign: 'center', fontWeight: 'bold' }}>
+                {loading ? 'Loading...' : `Sold : ${totalSupply} / ${maxSupply}`}
+              </Text>
+              <Text className="remainingSupply" style={{ color: 'white', padding: '10px', textAlign: 'center', fontWeight: 'bold' }}>
+                {loading ? 'Loading...' : `Remaining Supply: ${remainingSupply}`}
+              </Text>
+              <Link isExternal href={`https://bscscan.com/token/${NFTMINT_CONTRACT_ADDRESS}`} className="contractaddr" style={{ color: 'white', display: 'block', textAlign: 'center', fontWeight: 'bold', marginTop: '10px' }}>
+                {NFTMINT_CONTRACT_ADDRESS}
+              </Link>
+              <Link isExternal href={`https://bscscan.com/token/${NFTMINT_CONTRACT_ADDRESS}`} className="contractaddr" style={{ color: 'white', display: 'block', textAlign: 'center', fontWeight: 'bold', marginTop: '10px' }}>
+                View on Explorer
+              </Link>
+            </div>
+            {remainingSupply > 0 ? (
+              <>
+                <Text className="pricecost" style={{ color: 'white', textAlign: 'center', fontWeight: 'bolder' }}>
+                  Mint at {MINT_PRICE} BNB Each
                 </Text>
-                <Text className="totalSupply" style={{color: 'white', padding: '10px', textAlign: 'center', fontWeight: 'bold' }}>
-                  {loading ? 'Loading...' : `Sold : ${totalSupply} / ${maxSupply}`}
-                </Text>
-                <Text className="remainingSupply" style={{color: 'white', padding: '10px', textAlign: 'center', fontWeight: 'bold' }}>
-                  {loading ? 'Loading...' : `Remaining Supply: ${remainingSupply}`}
-                </Text>
-                <Link isExternal href={`https://bscscan.com/token/${NFTMINT_CONTRACT_ADDRESS}`} className="contractaddr" style={{color: 'white', display: 'block', textAlign: 'center', fontWeight: 'bold', marginTop: '10px' }}>
-                  {NFTMINT_CONTRACT_ADDRESS}
-                </Link>
-                <Link isExternal href={`https://bscscan.com/token/${NFTMINT_CONTRACT_ADDRESS}`} className="contractaddr" style={{color: 'white', display: 'block', textAlign: 'center', fontWeight: 'bold', marginTop: '10px' }}>
-                  View on Explorer
-                </Link>
-              </div>
-              {remainingSupply > 0 ? (
-                <>
-                  <Text className="pricecost" style={{color: 'white', textAlign: 'center', fontWeight: 'bolder' }}>
-                    Mint at 0.04 BNB Each
+                <Box marginTop="4" display="flex" alignItems="center" justifyContent="center">
+                  <Button
+                    onClick={handleDecrement}
+                    disabled={mintAmount <= 1 || mintLoading || remainingSupply === 0}
+                    textColor="white"
+                    bg="#e8bf72"
+                    _hover={{ bg: '#a7801a' }}
+                  >
+                    -
+                  </Button>
+                  <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bolder', marginTop: '20px' }} mx="4">
+                    {mintAmount}
                   </Text>
-                  <Box marginTop='4' display='flex' alignItems='center' justifyContent='center'>
-                    <Button
-                      onClick={() => setMintQuantity(mintAmount - 1)}
-                      disabled={mintAmount <= 1 || mintLoading || remainingSupply === 0}
-                      textColor='white'
-                      bg='#e8bf72'
-                      _hover={{ bg: '#a7801a' }}>
-                      -
-                    </Button>
-                    <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bolder', marginTop: '20px' }} mx='4'>{mintAmount}</Text>
-                    <Button
-                      onClick={() => setMintQuantity(mintAmount + 1)}
-                      disabled={mintAmount >= remainingSupply || mintLoading}
-                      textColor='white'
-                      bg='#e8bf72'
-                      _hover={{ bg: '#a7801a' }}>
-                      +
-                    </Button>
-                  </Box>
-                  <Box marginTop='4'marginBottom='10' display='flex' alignItems='center' justifyContent='center' >
+                  <Button
+                    onClick={handleIncrement}
+                    disabled={mintAmount >= 5 || mintLoading}
+                    textColor="white"
+                    bg="#e8bf72"
+                    _hover={{ bg: '#a7801a' }}
+                  >
+                    +
+                  </Button>
+                </Box>
+                <Box marginTop="4" marginBottom="10" display="flex" alignItems="center" justifyContent="center">
                   <Button
                     onClick={onMintClick}
                     disabled={!isConnected || mintLoading || remainingSupply === 0}
-                    textColor='white'
-                    bg='#e8bf72'
+                    textColor="white"
+                    bg="#e8bf72"
                     _hover={{ bg: '#a7801a' }}
-                    marginTop='4'>
+                    marginTop="4"
+                  >
                     Mint Now
                   </Button>
                 </Box>
+                <Box marginTop="4" marginBottom="10" display="flex" alignItems="center" justifyContent="center">
+                  <Link style={{ color: 'white', padding: '10px', textAlign: 'center', fontWeight: 'bold' }} href="/viewnfts" mt="2" color="white" textAlign="center">
+                    View your Toasties
+                  </Link>
+                </Box>
+              </>
+            ) : (
+              <Text className="pricecost" style={{ color: 'white', textAlign: 'center', fontWeight: 'bolder', marginTop: '20px' }}>
+                Minting has Completed!
+              </Text>
+            )}
+            {mintError && <Text color="red.500" mt="4">Error: {mintError.message}</Text>}
+          </Box>
 
-                        </>
-                      ) : (
-                        <Text className="pricecost" style={{ color: 'white', textAlign: 'center', fontWeight: 'bolder', marginTop: '20px' }}>
-                          Minting has Completed!
-                        </Text>
-                      )}
-                      {mintError && <Text color="red.500" mt="4">Error: {mintError.message}</Text>}
-              </Box>
+          <Box
+            bg="rgba(0,0,0,0)"
+            padding="20px"
+            width="100%"
+            mx="auto"
+            marginTop="60px"
+          >
+            <Image src={toastmanImage} mx="auto" alt="Description of Image" width="220px" />
+          </Box>
 
-              <Box
-                bg="rgba(0,0,0,0)"
-                padding="20px"
-                width="100%"
-                mx="auto"
-                marginTop="60px"
-              >
-                  <Image src={toastmanImage} mx="auto" alt="Description of Image" width="220px"  />
-              </Box>
-
-
-
-            <Footer/>
-             </Box>
-    </Box>
+          <Footer />
+        </Box>
+      </Box>
     </>
- );
-};
+  );
+}
 
 export default NftMint;

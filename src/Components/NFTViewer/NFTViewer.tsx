@@ -19,9 +19,8 @@ import mainbackgroundImage from "./animatedtoast.gif";
 import toastLogo from "../Footer/logos/logotoast.png";
 import toastmanImage from "./toastmanImage.png";
 
-const NFTMINT_CONTRACT_ADDRESS = '0x6aD7cCE6eF4AC1EaB35c6e0068B5adCf8561870D';
-
-const getExplorerLink = (tokenId: number) => `https://scan.maxxchain.org/token/${NFTMINT_CONTRACT_ADDRESS}?a=${tokenId}`;
+const NFTMINT_CONTRACT_ADDRESS = '0x6F6712296fc77964a31b04d587eac42a3B16e711';
+const getExplorerLink = (tokenId: number) => `https://bscscan.com/nft/${NFTMINT_CONTRACT_ADDRESS}/${tokenId}`;
 const getMarketplaceLink = (tokenId: number) => `https://element.market/assets/bsc/${NFTMINT_CONTRACT_ADDRESS}/${tokenId}`;
 
 const addNftToWallet = async (tokenId: number) => {
@@ -30,19 +29,25 @@ const addNftToWallet = async (tokenId: number) => {
     if (!ethereum) {
       throw new Error('Ethereum object not found');
     }
-    const provider = new ethers.providers.Web3Provider(ethereum);
-    const asset = {
-      type: 'ERC721',
-      options: {
-        address: NFTMINT_CONTRACT_ADDRESS,
-        tokenId: tokenId.toString(),
-        symbol: 'TOASTIES',
-        image: `https://raw.githubusercontent.com/ArielRin/Project-FrozenBread/master/build-1/images/${tokenId}.png`
-      },
-    };
 
-    await provider.send('wallet_watchAsset', [asset]);
-    console.log('Asset added');
+    const wasAdded = await ethereum.request({
+      method: 'wallet_watchAsset',
+      params: {
+        type: 'ERC721',
+        options: {
+          address: NFTMINT_CONTRACT_ADDRESS,
+          tokenId: tokenId.toString(),
+          symbol: 'TOASTIES',
+          image: `https://raw.githubusercontent.com/ArielRin/Project-FrozenBread/master/build-1/images/${tokenId}.png`,
+        },
+      },
+    });
+
+    if (wasAdded) {
+      console.log('Asset added');
+    } else {
+      console.log('Asset addition rejected');
+    }
   } catch (error) {
     console.error('Error adding NFT to wallet', error);
   }
@@ -68,7 +73,7 @@ function MyNfts() {
 
     try {
       setLoading(true);
-      const provider = new ethers.providers.JsonRpcProvider('https://mainrpc.maxxchain.org/');
+      const provider = new ethers.providers.JsonRpcProvider('https://bsc-dataseed.binance.org/');
       const contract = new ethers.Contract(NFTMINT_CONTRACT_ADDRESS, nftMintAbi, provider);
       const balance = await contract.balanceOf(address);
       const nftList: number[] = [];
@@ -101,7 +106,7 @@ function MyNfts() {
     <>
       <header>
         <div className="header-logo">
-          <Link href="toastecosystem.online" isExternal>
+          <Link href="/" isExternal>
             <Image src={toastLogo} alt="Toast Logo" width="220px" />
           </Link>
         </div>
@@ -127,7 +132,7 @@ function MyNfts() {
           m={0}
           display="flex"
           flexDirection="column"
-          bg="rgba(0, 0, 0, 0.5)"
+          bg="rgba(0, 0, 0, 0.2)"
           bgPosition="center"
           bgRepeat="no-repeat"
           bgSize="cover"
@@ -141,6 +146,11 @@ function MyNfts() {
             mx="auto"
             my="20px"
           >
+            <Box marginTop='4' marginBottom='10' display='flex' alignItems='center' justifyContent='center'>
+              <Link style={{ color: 'white', padding: '10px', textAlign: 'center', fontWeight: 'bold' }} href="/" mt="2" color="white" textAlign="center">
+                Minting Page
+              </Link>
+            </Box>
             <Text className="pricecosthead" style={{ color: 'white', textAlign: 'center', fontWeight: 'bolder' }}>
               My Toasties
             </Text>
@@ -179,7 +189,7 @@ function MyNfts() {
                     >
                       Add to Wallet
                     </Button>
-                    <Link style={{ marginTop: '40px' , color: 'white', padding: '10px', textAlign: 'center', fontWeight: 'bold' }}  href={getExplorerLink(tokenId)} isExternal mt="2" color="white" textAlign="center">
+                    <Link style={{ marginTop: '40px', color: 'white', padding: '10px', textAlign: 'center', fontWeight: 'bold' }} href={getExplorerLink(tokenId)} isExternal mt="2" color="white" textAlign="center">
                       View on BSCScan
                     </Link>
                   </Box>
