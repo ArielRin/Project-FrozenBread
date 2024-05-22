@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-
-import Footer from '../Footer/Footer';
-
-
-
+import { ethers } from 'ethers';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import Web3 from 'web3';
+import { useAccount, useContractRead, useContractWrite } from 'wagmi';
 
 import {
   Box,
@@ -13,17 +12,19 @@ import {
   Link,
   Container,
   Link as ChakraLink,
-
   useToast,
 } from '@chakra-ui/react';
 
-import { ethers } from 'ethers';
+import Footer from '../Footer/Footer';
 
-import Web3 from 'web3';
-import { useAccount, useContractRead, useContractWrite } from 'wagmi';
+import './mintNftStyles.css';
+
 
 import nftMintAbi from './nftMintAbi.json';
-import mainbackgroundImage from "./animatedtoast.gif";
+import mainbackgroundImage from "./bg2.png";
+import toastmanImage from "./toastmanImage.png";
+import toastLogo from "../Footer/logos/logotoast.png";
+import MainTextLogo from './headerLogo.png';
 
 
 const NFTMINT_CONTRACT_ADDRESS = '0x6aD7cCE6eF4AC1EaB35c6e0068B5adCf8561870D';
@@ -31,12 +32,6 @@ const NFTMINT_CONTRACT_ADDRESS = '0x6aD7cCE6eF4AC1EaB35c6e0068B5adCf8561870D';
 const getExplorerLink = () => `https://scan.maxxchain.org/address/${NFTMINT_CONTRACT_ADDRESS}`;
 
 // const getExplorerLink = () => `https://bscscan.com/token/${NFTMINT_CONTRACT_ADDRESS}`;
-
-import './mintNftStyles.css';
-import toastLogo from "../Footer/logos/logotoast.png";
-
-import { ConnectButton } from '@rainbow-me/rainbowkit';
-
 
 
 function NftMint() {
@@ -154,6 +149,18 @@ function NftMint() {
   const remainingSupply = maxSupply - totalSupply;
 
   return (
+    <>
+    <header >
+       <div className="header-logo">
+
+         <ChakraLink href="toastecosystem.online" isExternal>
+           <Image src={toastLogo} alt="Description of Image" width="220px"  />
+         </ChakraLink>
+       </div>
+       <div className="connect-button">
+         <ConnectButton />
+       </div>
+    </header>
     <Box
       flex={1}
       p={0}
@@ -177,117 +184,103 @@ function NftMint() {
         bgRepeat="no-repeat"
         bgSize="cover"
       >
-                          <Box
-                            bg="rgba(0,0,0,0)" // Choose your desired background color
-                            padding="20px" // Apply padding inside the box
-                            width="100%" // Set the width of the box
-                            mx="auto" // Center the box
-                            marginTop="5px"
-                          >
-                          </Box>
-<ConnectButton />
 
-                    <Box
-                      bg="rgba(0,0,0,0)" // Choose your desired background color
-                      padding="20px" // Apply padding inside the box
-                      width="100%" // Set the width of the box
-                      mx="auto" // Center the box
-                      marginTop="60px"
-                    >
-                    </Box>
       <Box
-        bg="rgba(0,0,0,0.6)" // Choose your desired background color
-        borderRadius="md" // Optional: for rounded corners
+        bg="rgba(0,0,0,0)" // Choose your desired background color
         padding="20px" // Apply padding inside the box
-        width="90%" // Set the width of the box
+        width="100%" // Set the width of the box
         mx="auto" // Center the box
+        marginTop="60px"
+      >
+      </Box>
+
+      <Box
+        bg="rgba(0,0,0,0.6)"
+        borderRadius="md"
+        padding="20px"
+        maxW="600px"
+        mx="auto"
         my="20px" // Optional: additional vertical margin outside the box
       >
           <div>
 
-          <ChakraLink href="toastecosystem.online" isExternal>
-            <Image src={toastLogo} alt="Description of Image" width="220px"  />
-          </ChakraLink>
-            <Text className="pricecosthead" style={{color: 'white', textAlign: 'center', fontWeight: 'bolder' }}>
-              Toast Champions NFT Collection
-            </Text>
-            <Text className="totalSupply" style={{color: 'white', padding: '10px', textAlign: 'center', fontWeight: 'bold' }}>
-              {loading ? 'Loading...' : `Sold : ${totalSupply} / ${maxSupply}`}
-            </Text>
-            <Text className="remainingSupply" style={{color: 'white', padding: '10px', textAlign: 'center', fontWeight: 'bold' }}>
-              {loading ? 'Loading...' : `Remaining Supply: ${remainingSupply}`}
-            </Text>
-            <Link isExternal href={`https://bscscan.com/token/${NFTMINT_CONTRACT_ADDRESS}`} className="contractaddr" style={{color: 'white', display: 'block', textAlign: 'center', fontWeight: 'bold', marginTop: '10px' }}>
-              {NFTMINT_CONTRACT_ADDRESS}
-            </Link>
-            <Link isExternal href={`https://bscscan.com/token/${NFTMINT_CONTRACT_ADDRESS}`} className="contractaddr" style={{color: 'white', display: 'block', textAlign: 'center', fontWeight: 'bold', marginTop: '10px' }}>
-              View on Explorer
-            </Link>
-          </div>
-          {remainingSupply > 0 ? (
-            <>
-              <Text className="pricecost" style={{color: 'white', textAlign: 'center', fontWeight: 'bolder' }}>
-                Mint at 0.04 BNB Each
-              </Text>
-              <Box marginTop='4' display='flex' alignItems='center' justifyContent='center'>
-                <Button
-                  onClick={() => setMintQuantity(mintAmount - 1)}
-                  disabled={mintAmount <= 1 || mintLoading || remainingSupply === 0}
-                  textColor='white'
-                  bg='#e0b721'
-                  _hover={{ bg: '#a7801a' }}>
-                  -
-                </Button>
-                <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bolder', marginTop: '20px' }} mx='4'>{mintAmount}</Text>
-                <Button
-                  onClick={() => setMintQuantity(mintAmount + 1)}
-                  disabled={mintAmount >= remainingSupply || mintLoading}
-                  textColor='white'
-                  bg='#e0b721'
-                  _hover={{ bg: '#a7801a' }}>
-                  +
-                </Button>
-              </Box>
-              <Box marginTop='4'marginBottom='10' display='flex' alignItems='center' justifyContent='center' >
-              <Button
-                onClick={onMintClick}
-                disabled={!isConnected || mintLoading || remainingSupply === 0}
-                textColor='white'
-                bg='#e0b721'
-                _hover={{ bg: '#a7801a' }}
-                marginTop='4'>
-                Mint Now
-              </Button>
-            </Box>
+                <Text className="pricecosthead" style={{color: 'white', textAlign: 'center', fontWeight: 'bolder' }}>
+                  Toast Champions NFT Collection
+                </Text>
+                <Text className="totalSupply" style={{color: 'white', padding: '10px', textAlign: 'center', fontWeight: 'bold' }}>
+                  {loading ? 'Loading...' : `Sold : ${totalSupply} / ${maxSupply}`}
+                </Text>
+                <Text className="remainingSupply" style={{color: 'white', padding: '10px', textAlign: 'center', fontWeight: 'bold' }}>
+                  {loading ? 'Loading...' : `Remaining Supply: ${remainingSupply}`}
+                </Text>
+                <Link isExternal href={`https://bscscan.com/token/${NFTMINT_CONTRACT_ADDRESS}`} className="contractaddr" style={{color: 'white', display: 'block', textAlign: 'center', fontWeight: 'bold', marginTop: '10px' }}>
+                  {NFTMINT_CONTRACT_ADDRESS}
+                </Link>
+                <Link isExternal href={`https://bscscan.com/token/${NFTMINT_CONTRACT_ADDRESS}`} className="contractaddr" style={{color: 'white', display: 'block', textAlign: 'center', fontWeight: 'bold', marginTop: '10px' }}>
+                  View on Explorer
+                </Link>
+              </div>
+              {remainingSupply > 0 ? (
+                <>
+                  <Text className="pricecost" style={{color: 'white', textAlign: 'center', fontWeight: 'bolder' }}>
+                    Mint at 0.04 BNB Each
+                  </Text>
+                  <Box marginTop='4' display='flex' alignItems='center' justifyContent='center'>
+                    <Button
+                      onClick={() => setMintQuantity(mintAmount - 1)}
+                      disabled={mintAmount <= 1 || mintLoading || remainingSupply === 0}
+                      textColor='white'
+                      bg='#e8bf72'
+                      _hover={{ bg: '#a7801a' }}>
+                      -
+                    </Button>
+                    <Text style={{ color: 'white', textAlign: 'center', fontWeight: 'bolder', marginTop: '20px' }} mx='4'>{mintAmount}</Text>
+                    <Button
+                      onClick={() => setMintQuantity(mintAmount + 1)}
+                      disabled={mintAmount >= remainingSupply || mintLoading}
+                      textColor='white'
+                      bg='#e8bf72'
+                      _hover={{ bg: '#a7801a' }}>
+                      +
+                    </Button>
+                  </Box>
+                  <Box marginTop='4'marginBottom='10' display='flex' alignItems='center' justifyContent='center' >
+                  <Button
+                    onClick={onMintClick}
+                    disabled={!isConnected || mintLoading || remainingSupply === 0}
+                    textColor='white'
+                    bg='#e8bf72'
+                    _hover={{ bg: '#a7801a' }}
+                    marginTop='4'>
+                    Mint Now
+                  </Button>
+                </Box>
 
-
-
-
-
-            </>
-          ) : (
-            <Text className="pricecost" style={{ color: 'white', textAlign: 'center', fontWeight: 'bolder', marginTop: '20px' }}>
-              Minting has Completed!
-            </Text>
-          )}
-          {mintError && <Text color="red.500" mt="4">Error: {mintError.message}</Text>}
-
+                        </>
+                      ) : (
+                        <Text className="pricecost" style={{ color: 'white', textAlign: 'center', fontWeight: 'bolder', marginTop: '20px' }}>
+                          Minting has Completed!
+                        </Text>
+                      )}
+                      {mintError && <Text color="red.500" mt="4">Error: {mintError.message}</Text>}
               </Box>
 
-                                    <Box
-                                      bg="rgba(0,0,0,0)" // Choose your desired background color
-                                      padding="20px" // Apply padding inside the box
-                                      width="100%" // Set the width of the box
-                                      mx="auto" // Center the box
-                                      marginTop="60px"
-                                    >
-                                    </Box>
+              <Box
+                bg="rgba(0,0,0,0)" // Choose your desired background color
+                padding="20px" // Apply padding inside the box
+                width="100%" // Set the width of the box
+                mx="auto" // Center the box
+                marginTop="60px"
+              >
+                  <Image src={toastmanImage} mx="auto" alt="Description of Image" width="220px"  />
+              </Box>
 
 
 
             <Footer/>
              </Box>
     </Box>
+    </>
  );
 };
 

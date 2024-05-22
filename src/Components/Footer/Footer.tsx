@@ -105,6 +105,17 @@ const Footer: React.FC = () => {
                     <Image src={toastLogo} alt="Description of Image" width="220px"  />
                   </ChakraLink>
                   <span>&copy; {currentYear} Toast Champions NFT Collection.</span>
+
+
+                                      <Box
+                                        bg="rgba(0,0,0,0)" // Choose your desired background color
+                                        padding="20px" // Apply padding inside the box
+                                        width="100%" // Set the width of the box
+                                        mx="auto" // Center the box
+                                        marginTop="120px"
+                                      >            
+                                      </Box>
+
               </Flex>
           </footer>
         );

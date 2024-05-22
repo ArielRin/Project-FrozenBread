@@ -1,32 +1,9 @@
-/* styles.css */
-
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
 }
 
-
-
-.logo {
-  width: 30%; /* 70% smaller than the original size */
-  height: auto;
-  margin-right: 10px; /* Adjust the margin as needed */
-}
-
-.header-text {
-  font-size: 24px; /* Adjust the font size as needed */
-}
-
-
 .header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background-color: #222; /* Change the background color as needed */
-  color: white;
-}
-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -35,67 +12,29 @@ header {
   color: white;
 }
 
-.header-text {
-  font-size: 22px; /* Adjust the font size as needed */
-}
-
-.wrapper {
-
-  backgroundRepeat: no-repeat;
-  background-position: center; /* Center the background image */
-  background-size: cover;
-  place-items: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #222; /* Change the background color as needed */
-}
-.mainboxwrapper {
-    background-color: rgba(12, 12, 12, 0.7);
-    min-height: 200px;
-    width: 970%;
-    margin: 0 auto;
-    border-radius: 2rem;
-    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-    -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-    display: flex;
-    padding: 2px;
-    flex-direction: column;
-    margin-top: 2px;
-}
-
-.bodywrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.container {
-  width: 80%;
-  max-width: 600px; /* Adjust the maximum width as needed */
-  justify-content: center;
-  align-items: center;
+.logo {
+  width: 220px; /* 70% smaller than the original size */
+  height: auto;
+  margin-right: 10px; /* Adjust the margin as needed */
 }
 
 .connect-button {
   margin-left: auto;
-
 }
 
-/* Add any additional styles here */
+/* Additional styles */
 
 .contractaddr {
   margin-top: 8px; /* Adjust the margin as needed */
   font-size: 12px; /* Adjust the font size as needed */
   color: white;
 }
+
 .paragraph1 {
   margin-top: 8px; /* Adjust the margin as needed */
   font-size: 14px; /* Adjust the font size as needed */
 }
+
 .pricecost {
   margin-top: 20px; /* Adjust the margin as needed */
   font-size: 24px; /* Adjust the font size as needed */
@@ -105,6 +44,7 @@ header {
   margin-top: 20px; /* Adjust the margin as needed */
   font-size: 38px; /* Adjust the font size as needed */
 }
+
 .supplynft {
   margin-top: 1px; /* Adjust the margin as needed */
   font-size: 24px; /* Adjust the font size as needed */
@@ -116,11 +56,6 @@ header {
   margin-right: 10px; /* Adjust the margin as needed */
 }
 
-.logo {
-  width: 30px; /* 70% smaller than the original size */
-  height: auto;
-  margin-right: 10px; /* Adjust the margin as needed */
-}
 
 .logobody {
   display: block; /* Ensures that the image is a block element */
