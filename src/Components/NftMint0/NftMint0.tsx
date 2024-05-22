@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-
-// @CMH ICE PUT VAVIABLES AT TOP FOR EASE USE
-const MAX_SUPPLY = '150';
-const MINT_PRICE = '0.04';
-const NFT_NAME = 'Toast Champions NFT Collection';
-const NFT_SYMBOL = 'TOASTY';
-const NFTMINT_CONTRACT_ADDRESS = '0x6aD7cCE6eF4AC1EaB35c6e0068B5adCf8561870D';
-const NETWORK_CHAIN_RPC = 'https://mainrpc.maxxchain.org/';
-const getExplorerLink = () => `https://scan.maxxchain.org/address/${NFTMINT_CONTRACT_ADDRESS}`;
-
-// @CMH ICE THE IMPORTS ARE BELOW
-
-=======
->>>>>>> parent of b8fc816b (added comments)
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
@@ -91,7 +76,7 @@ function NftMint() {
 
     try {
       setLoading(true);
-      const provider = new ethers.providers.JsonRpcProvider(NETWORK_CHAIN_RPC);
+      const provider = new ethers.providers.JsonRpcProvider('https://mainrpc.maxxchain.org/');
       const contract = new ethers.Contract(NFTMINT_CONTRACT_ADDRESS, nftMintAbi, provider);
       const supply = await contract.totalSupply();
       setTotalSupply(supply.toNumber());
@@ -199,58 +184,6 @@ function NftMint() {
         bgRepeat="no-repeat"
         bgSize="cover"
       >
-<<<<<<< HEAD
-        <Box
-          flex={1}
-          p={0}
-          m={0}
-          display="flex"
-          flexDirection="column"
-          bg="rgba(0, 0, 0, 0.5)"
-          bgPosition="center"
-          bgRepeat="no-repeat"
-          bgSize="cover"
-        >
-          <Box
-            bg="rgba(0,0,0,0)"
-            padding="20px"
-            width="100%"
-            mx="auto"
-            marginTop="60px"
-          />
-          <Box
-            bg="rgba(0,0,0,0.6)"
-            borderRadius="md"
-            padding="20px"
-            maxW="600px"
-            mx="auto"
-            my="20px"
-          >
-            <div>
-              <Text className="pricecosthead" style={{ color: 'white', textAlign: 'center', fontWeight: 'bolder' }}>
-                {NFT_NAME}
-              </Text>
-                <Text className="totalSupply" style={{ color: 'white', textAlign: 'center', fontWeight: 'bolder' }}>
-                  ${NFT_SYMBOL}
-                </Text>
-              <Text className="totalSupply" style={{ color: 'white', padding: '10px', textAlign: 'center', fontWeight: 'bold' }}>
-                {loading ? 'Loading...' : `Sold : ${totalSupply} / ${maxSupply}`}
-              </Text>
-              <Text className="remainingSupply" style={{ color: 'white', padding: '10px', textAlign: 'center', fontWeight: 'bold' }}>
-                {loading ? 'Loading...' : `Remaining Supply: ${remainingSupply}`}
-              </Text>
-              <Link isExternal href={`https://bscscan.com/token/${NFTMINT_CONTRACT_ADDRESS}`} className="contractaddr" style={{ color: 'white', display: 'block', textAlign: 'center', fontWeight: 'bold', marginTop: '10px' }}>
-                {NFTMINT_CONTRACT_ADDRESS}
-              </Link>
-              <Link isExternal href={`https://bscscan.com/token/${NFTMINT_CONTRACT_ADDRESS}`} className="contractaddr" style={{ color: 'white', display: 'block', textAlign: 'center', fontWeight: 'bold', marginTop: '10px' }}>
-                View on Explorer
-              </Link>
-            </div>
-            {remainingSupply > 0 ? (
-              <>
-                <Text className="pricecost" style={{ color: 'white', textAlign: 'center', fontWeight: 'bolder' }}>
-                  Mint at {MINT_PRICE} BNB Each
-=======
 
       <Box
         bg="rgba(0,0,0,0)" // Choose your desired background color
@@ -273,7 +206,6 @@ function NftMint() {
 
                 <Text className="pricecosthead" style={{color: 'white', textAlign: 'center', fontWeight: 'bolder' }}>
                   Toast Champions NFT Collection
->>>>>>> parent of b8fc816b (added comments)
                 </Text>
                 <Text className="totalSupply" style={{color: 'white', padding: '10px', textAlign: 'center', fontWeight: 'bold' }}>
                   {loading ? 'Loading...' : `Sold : ${totalSupply} / ${maxSupply}`}
@@ -323,29 +255,6 @@ function NftMint() {
                     Mint Now
                   </Button>
                 </Box>
-<<<<<<< HEAD
-              </>
-            ) : (
-              <Text className="pricecost" style={{ color: 'white', textAlign: 'center', fontWeight: 'bolder', marginTop: '20px' }}>
-                Minting has Completed!
-              </Text>
-            )}
-            {mintError && <Text color="red.500" mt="4">Error: {mintError.message}</Text>}
-          </Box>
-          <Box
-            bg="rgba(0,0,0,0)"
-            padding="20px"
-            width="100%"
-            mx="auto"
-            marginTop="40px"
-          >
-            <Image src={toastmanImage} mx="auto" alt="Description of Image" width="220px" />
-          </Box>
-          {/* @CMH THIS FOOTER IS REFERENCED FROM COMPONENTS */}
-          <Footer />
-        </Box>
-      </Box>
-=======
 
                         </>
                       ) : (
@@ -371,7 +280,6 @@ function NftMint() {
             <Footer/>
              </Box>
     </Box>
->>>>>>> parent of b8fc816b (added comments)
     </>
  );
 };
