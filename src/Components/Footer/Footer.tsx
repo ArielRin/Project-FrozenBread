@@ -107,33 +107,14 @@ const Footer: React.FC = () => {
                   <span>&copy; {currentYear} Toast Champions NFT Collection.</span>
 
 
-<<<<<<< HEAD
-                <Flex direction="column" alignItems="center">
-                  <Box
-                    bg="rgba(0,0,0,0)"
-                    width="100%"
-                    marginTop="40px"
-                  >
-                      <ChakraLink href="https://alpha7.live" isExternal>
-                        <Image  src={devlogo} alt="Dapp created by the Alpha7 Team." width="45px"  />
-                      </ChakraLink>
-                  </Box>
-
-                </Flex>
-
-                                    <Text  style={{ color: 'white', textAlign:  'center', fontSize: '6px', fontWeight: 'normal', marginTop: '6px' }}>
-                                      Dapp created by the Alpha7 Team.
-                                    </Text>
-=======
                                       <Box
                                         bg="rgba(0,0,0,0)" // Choose your desired background color
                                         padding="20px" // Apply padding inside the box
                                         width="100%" // Set the width of the box
                                         mx="auto" // Center the box
                                         marginTop="120px"
-                                      >            
+                                      >
                                       </Box>
->>>>>>> parent of b8fc816b (added comments)
 
               </Flex>
           </footer>
