@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Mint from './Components/NftMint0/NftMint0';
 import Viewer from './Components/NFTViewer/NFTViewer';
-import Embed from './Components/NftMint0/Embed';
+// import Embed from './Components/NftMint0/Embed';
 
 
 import { ConnectButton } from '@rainbow-me/rainbowkit';
@@ -37,7 +37,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Mint />} />
           <Route path="/viewnfts" element={<Viewer />} />
-            <Route path="/embed" element={<Embed />} />
 
       </Routes>
     </Router>
@@ -48,4 +47,4 @@ export default App;
 
 
 
-// ***
+// ***            <Route path="/embed" element={<Embed />} />
