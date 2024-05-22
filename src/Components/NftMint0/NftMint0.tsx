@@ -19,18 +19,20 @@ import nftMintAbi from './nftMintAbi.json';
 import mainbackgroundImage from "./bg2.png";
 import toastmanImage from "./toastmanImage.png";
 import toastLogo from "../Footer/logos/logotoast.png";
-const MINT_PRICE = '0.000004';
-const MINT_SUPPLY = '150';
+
+const MINT_PRICE = 0.04;
+const MINT_SUPPLY = 150;
 const NFTMINT_CONTRACT_ADDRESS = '0x6F6712296fc77964a31b04d587eac42a3B16e711';
+
 const getExplorerLink = () => `https://bscscan.com/address/${NFTMINT_CONTRACT_ADDRESS}`;
 
 function NftMint() {
   const { address, isConnected } = useAccount();
   const toast = useToast();
-  const [totalSupply, setTotalSupply] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [mintAmount, setMintQuantity] = useState(1);
-  const [mintLoading, setMintLoading] = useState(false);
+  const [totalSupply, setTotalSupply] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [mintAmount, setMintQuantity] = useState<number>(1);
+  const [mintLoading, setMintLoading] = useState<boolean>(false);
 
   const contractConfig = {
     addressOrName: NFTMINT_CONTRACT_ADDRESS,
