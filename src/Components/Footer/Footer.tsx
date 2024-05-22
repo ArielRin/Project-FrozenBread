@@ -47,6 +47,7 @@ import pooLogo from "./logos/poo.png";
 import telegramLogo from "./logos/telegram.png";
 import tofuLogo from "./logos/tofu.png";
 import xLogo from "./logos/x.png";
+import devlogo from "./logos/a7.png";
 
 
 
@@ -107,14 +108,19 @@ const Footer: React.FC = () => {
                   <span>&copy; {currentYear} Toast Champions NFT Collection.</span>
 
 
-                                      <Box
-                                        bg="rgba(0,0,0,0)" // Choose your desired background color
-                                        padding="20px" // Apply padding inside the box
-                                        width="100%" // Set the width of the box
-                                        mx="auto" // Center the box
-                                        marginTop="120px"
-                                      >            
-                                      </Box>
+                  <Box
+                    bg="rgba(0,0,0,0)"
+                    padding="20px"
+                    width="100%"
+                    mx="auto"
+                    marginTop="40px"
+                  >
+                                                        <ChakraLink href="https://alpha7.live" isExternal>
+                                                          <Image align="center" src={devlogo} alt="Dapp created by the Alpha7 Team." width="25px"  />
+                                                        </ChakraLink>
+
+                  </Box>
+                                    
 
               </Flex>
           </footer>
