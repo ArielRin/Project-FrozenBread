@@ -139,16 +139,7 @@ function NftMint() {
 
   return (
     <>
-      <header>
-        <div className="header-logo">
-          <Link href="/" isExternal>
-            <Image src={toastLogo} alt="Toast Logo" width="220px" />
-          </Link>
-        </div>
-        <div className="connect-button">
-          <ConnectButton />
-        </div>
-      </header>
+
       <Box
         flex={1}
         p={0}
@@ -172,23 +163,35 @@ function NftMint() {
           bgRepeat="no-repeat"
           bgSize="cover"
         >
-          <Box
-            bg="rgba(0,0,0,0)"
-            padding="20px"
-            width="100%"
-            mx="auto"
-            marginTop="60px"
-          ></Box>
 
           <Box
             bg="rgba(0,0,0,0.6)"
             borderRadius="md"
             padding="20px"
-            maxW="600px"
+            maxW="100%"
             mx="auto"
-            my="20px"
           >
+
+
             <div>
+
+              <ConnectButton />
+              <Box
+                bg="rgba(0,0,0,0)"
+                padding="20px"
+                width="100%"
+                align="center"
+                marginTop="60px"
+              >
+              <div className="header-logo">
+                <Link href="/" isExternal>
+                  <Image src={toastLogo} alt="Toast Logo" width="220px" />
+                </Link>
+              </div>
+
+
+              </Box>
+
               <Text className="pricecosthead" style={{ color: 'white', textAlign: 'center', fontWeight: 'bolder' }}>
                 Toast Champions NFT Collection
               </Text>
@@ -259,17 +262,7 @@ function NftMint() {
             {mintError && <Text color="red.500" mt="4">Error: {mintError.message}</Text>}
           </Box>
 
-          <Box
-            bg="rgba(0,0,0,0)"
-            padding="20px"
-            width="100%"
-            mx="auto"
-            marginTop="60px"
-          >
-            <Image src={toastmanImage} mx="auto" alt="Description of Image" width="220px" />
-          </Box>
 
-          <Footer />
         </Box>
       </Box>
     </>
