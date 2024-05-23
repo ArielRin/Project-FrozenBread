@@ -104,7 +104,7 @@ function MyNfts() {
       <header>
         <div className="header-logo">
           <Link href="/" isExternal>
-            <Image src="/images/logotoast.png" alt="Toast Logo" width="220px" />
+            <Image src="/images/logotoast.png" alt="Toast Logo" width="150px" />
           </Link>
         </div>
         <div className="connect-button">

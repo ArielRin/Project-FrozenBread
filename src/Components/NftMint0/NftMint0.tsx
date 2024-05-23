@@ -137,7 +137,7 @@ function NftMint() {
       <header>
         <div className="header-logo">
           <Link href="/" isExternal>
-            <Image src="/images/logotoast.png" alt="Toast Logo" width="220px" />
+            <Image src="/images/logotoast.png" alt="Toast Logo" width="150px" />
           </Link>
         </div>
         <div className="connect-button">
@@ -162,7 +162,7 @@ function NftMint() {
           m={0}
           display="flex"
           flexDirection="column"
-          bg="rgba(0, 0, 0, 0.5)"
+          bg="rgba(0, 0, 0, 0.2)"
           bgPosition="center"
           bgRepeat="no-repeat"
           bgSize="cover"
