@@ -1,4 +1,3 @@
-
 const MINT_PRICE = 0.04;
 const MINT_SUPPLY = 150;
 const NFTMINT_CONTRACT_ADDRESS = '0x466cc282a58333F3CD94690a520b5aFAD30506cD';
@@ -22,10 +21,6 @@ import Footer from '../Footer/Footer';
 import './mintNftStyles.css';
 
 import nftMintAbi from './nftMintAbi.json';
-import mainbackgroundImage from "./bg2.png";
-import toastmanImage from "./toastmanImage.png";
-import toastLogo from "../Footer/logos/logotoast.png";
-
 
 function NftMint() {
   const { address, isConnected } = useAccount();
@@ -142,7 +137,7 @@ function NftMint() {
       <header>
         <div className="header-logo">
           <Link href="/" isExternal>
-            <Image src={toastLogo} alt="Toast Logo" width="220px" />
+            <Image src="/images/logotoast.png" alt="Toast Logo" width="220px" />
           </Link>
         </div>
         <div className="connect-button">
@@ -156,7 +151,7 @@ function NftMint() {
         display="flex"
         flexDirection="column"
         bg="rgba(0, 0, 0, 1)"
-        bgImage={`url(${mainbackgroundImage})`}
+        bgImage="url('/images/bg2.png')"
         bgPosition="center"
         bgRepeat="no-repeat"
         bgSize="cover"
@@ -266,7 +261,7 @@ function NftMint() {
             mx="auto"
             marginTop="60px"
           >
-            <Image src={toastmanImage} mx="auto" alt="Description of Image" width="220px" />
+            <Image src="/images/toastmanImage.png" mx="auto" alt="Description of Image" width="220px" />
           </Box>
 
           <Footer />

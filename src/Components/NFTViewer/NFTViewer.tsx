@@ -15,9 +15,6 @@ import {
 import Footer from '../Footer/Footer';
 
 import nftMintAbi from './nftMintAbi.json';
-import mainbackgroundImage from "./animatedtoast.gif";
-import toastLogo from "../Footer/logos/logotoast.png";
-import toastmanImage from "./toastmanImage.png";
 
 const NFTMINT_CONTRACT_ADDRESS = '0x466cc282a58333F3CD94690a520b5aFAD30506cD';
 const getExplorerLink = (tokenId: number) => `https://bscscan.com/nft/${NFTMINT_CONTRACT_ADDRESS}/${tokenId}`;
@@ -107,7 +104,7 @@ function MyNfts() {
       <header>
         <div className="header-logo">
           <Link href="/" isExternal>
-            <Image src={toastLogo} alt="Toast Logo" width="220px" />
+            <Image src="/images/logotoast.png" alt="Toast Logo" width="220px" />
           </Link>
         </div>
         <div className="connect-button">
@@ -121,7 +118,7 @@ function MyNfts() {
         display="flex"
         flexDirection="column"
         bg="rgba(0, 0, 0, 1)"
-        bgImage={`url(${mainbackgroundImage})`}
+        bgImage="url('/images/animatedtoast.gif')"
         bgPosition="center"
         bgRepeat="no-repeat"
         bgSize="cover"
@@ -204,7 +201,7 @@ function MyNfts() {
             mx="auto"
             marginTop="30px"
           >
-            <Image marginBottom="40px" src={toastmanImage} mx="auto" alt="Toast Man" width="220px" />
+            <Image marginBottom="40px" src="/images/toastmanImage.png" mx="auto" alt="Toast Man" width="220px" />
           </Box>
           <Footer />
         </Box>
