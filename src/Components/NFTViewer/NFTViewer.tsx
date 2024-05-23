@@ -19,7 +19,7 @@ import mainbackgroundImage from "./animatedtoast.gif";
 import toastLogo from "../Footer/logos/logotoast.png";
 import toastmanImage from "./toastmanImage.png";
 
-const NFTMINT_CONTRACT_ADDRESS = '0x6F6712296fc77964a31b04d587eac42a3B16e711';
+const NFTMINT_CONTRACT_ADDRESS = '0x466cc282a58333F3CD94690a520b5aFAD30506cD';
 const getExplorerLink = (tokenId: number) => `https://bscscan.com/nft/${NFTMINT_CONTRACT_ADDRESS}/${tokenId}`;
 const getMarketplaceLink = (tokenId: number) => `https://element.market/assets/bsc/${NFTMINT_CONTRACT_ADDRESS}/${tokenId}`;
 

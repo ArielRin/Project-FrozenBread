@@ -1,19 +1,23 @@
+/**
+ *Submitted for verification at BscScan.com on 2022-10-17
+*/
+
 // SPDX-License-Identifier: MIT
 
+// Amended by HashLips
+/**
+    !Disclaimer!
+    These contracts have been used to create tutorials,
+    and was created for the purpose to teach people
+    how to create smart contracts on the blockchain.
+    please review this code on your own before using any of
+    the following code for production.
+    HashLips will not be liable in any way if for the use
+    of the code. That being said, the code has been tested
+    to the best of the developers' knowledge to work as intended.
+*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+// File: @openzeppelin/contracts/utils/introspection/IERC165.sol
 pragma solidity ^0.8.0;
 /**
  * @dev Interface of the ERC165 standard, as defined in the
@@ -1230,23 +1234,20 @@ abstract contract Ownable is Context {
     }
 }
 
+pragma solidity >=0.7.0 <0.9.0;
 
-pragma solidity 0.8.19;
-
-contract ToastyCollection is ERC721Enumerable, Ownable {
+contract ICEtestNFT is ERC721Enumerable, Ownable {
   using Strings for uint256;
 
   string baseURI;
   string public baseExtension = ".json";
-  uint256 public cost = 0.04 ether;
-  uint256 public maxSupply = 150;
-  uint256 public maxMintAmount = 5;
+  uint256 public cost = 0.01 ether;
+  uint256 public maxSupply = 36;
+  uint256 public maxMintAmount = 4;
   bool public paused = false;
-  bool public revealed = false;
+  bool public revealed = true;
   string public notRevealedUri;
 
-  // Payments to:
-  // Royalties to:
   constructor(
     string memory _name,
     string memory _symbol,
@@ -1256,7 +1257,6 @@ contract ToastyCollection is ERC721Enumerable, Ownable {
     setBaseURI(_initBaseURI);
     setNotRevealedURI(_initNotRevealedUri);
   }
-
 
   // internal
   function _baseURI() internal view virtual override returns (string memory) {
@@ -1344,15 +1344,8 @@ contract ToastyCollection is ERC721Enumerable, Ownable {
     paused = _state;
   }
 
-  // Function to get the contract's balance in ether
-  function getContractBalance() external view returns (uint256) {
-    return address(this).balance ; // 1 ether; // Convert the balance to ether
-  }
-
   function withdraw() public payable onlyOwner {
-    // =============================================================================
 
-    // =============================================================================
     (bool os, ) = payable(owner()).call{value: address(this).balance}("");
     require(os);
     // =============================================================================
