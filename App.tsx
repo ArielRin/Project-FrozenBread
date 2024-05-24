@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home';
-import Launch from './Pages/Launch/Launchpad';
-import Staking from './Pages/Staking/Staking';
-import List from './Pages/Launch/listTokensLaunchedDecending';
-import DeployStake from './Pages/Launch/DeployStaking1Month';
-DeployStake
+import Drop from './Components/RewardsDistributor/RewardsDistributor';
+import Claim from './Components/RewardsDistributor/claimNftRewards';
+
+import Nfts from './Components/NFTViewer/NFTViewer';
+
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 import {
@@ -37,10 +37,9 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/launch" element={<Launch />} />
-        <Route path="/deploystake" element={<DeployStake />} />
-        <Route path="/staking" element={<Staking />} />
-        <Route path="/list" element={<List />} />
+        <Route path="/nfts" element={<Nfts />} />
+        <Route path="/drop" element={<Drop />} />
+        <Route path="/claim" element={<Claim />} />
       </Routes>
     </Router>
   );

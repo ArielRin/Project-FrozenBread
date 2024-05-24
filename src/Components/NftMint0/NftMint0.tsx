@@ -1,7 +1,17 @@
 const MINT_PRICE = 0.04;
 const MINT_SUPPLY = 150;
-const NFTMINT_CONTRACT_ADDRESS = '0x466cc282a58333F3CD94690a520b5aFAD30506cD';
-const getExplorerLink = () => `https://bscscan.com/address/${NFTMINT_CONTRACT_ADDRESS}`;
+
+const NFTMINT_CONTRACT_ADDRESS = '0x466cc282a58333F3CD94690a520b5aFAD30506cD'; // live bsc
+const RPC_PROVIDER = 'https://bsc-dataseed.binance.org/'; // bsc rpc
+const EXPLORER_LINK = 'https://bscscan.com/'; //BSC explorer
+// 
+// const NFTMINT_CONTRACT_ADDRESS = '0x6aD7cCE6eF4AC1EaB35c6e0068B5adCf8561870D'; //testing on max
+// const RPC_PROVIDER = 'https://mainrpc.maxxchain.org/'; //max rpc
+// const EXPLORER_LINK = 'https://scan.maxxchain.org/'; //max rpc
+
+
+
+const getExplorerLink = () => `${EXPLORER_LINK}address/${NFTMINT_CONTRACT_ADDRESS}`;
 
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
@@ -64,7 +74,7 @@ function NftMint() {
 
     try {
       setLoading(true);
-      const provider = new ethers.providers.JsonRpcProvider('https://bsc-dataseed.binance.org/');
+      const provider = new ethers.providers.JsonRpcProvider(RPC_PROVIDER);
       const contract = new ethers.Contract(NFTMINT_CONTRACT_ADDRESS, nftMintAbi, provider);
       const supply = await contract.totalSupply();
       setTotalSupply(supply.toNumber());
