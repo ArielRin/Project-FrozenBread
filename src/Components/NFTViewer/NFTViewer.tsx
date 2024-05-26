@@ -4,6 +4,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount } from 'wagmi';
 import { ToastContainer, toast as notify } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import {
   Box,
   Button,
@@ -16,12 +17,11 @@ import {
 
 import Footer from '../Footer/Footer';
 import nftMintAbi from './nftMintAbi.json';
-import contractABI from './splitterABI.json';
+import ClaimToast from '../Claim/ClaimToast';
 
-const CONTRACT_ADDRESS = '0xd4b7bACE3Be6A9ad92A635FA44bFF5Bd14e6De3b';
-const NFTMINT_CONTRACT_ADDRESS = '0x466cc282a58333F3CD94690a520b5aFAD30506cD'; // live bsc
-const RPC_PROVIDER = 'https://bsc-dataseed.binance.org/'; // bsc rpc
-const EXPLORER_LINK = 'https://bscscan.com/'; // BSC explorer
+const NFTMINT_CONTRACT_ADDRESS = '0x466cc282a58333F3CD94690a520b5aFAD30506cD';
+const RPC_PROVIDER = 'https://bsc-dataseed.binance.org/';
+const EXPLORER_LINK = 'https://bscscan.com/'; 
 
 const getExplorerLink = (tokenId: number) => `${EXPLORER_LINK}token/${NFTMINT_CONTRACT_ADDRESS}?a=${tokenId}`;
 const getMarketplaceLink = (tokenId: number) => `https://element.market/assets/bsc/${NFTMINT_CONTRACT_ADDRESS}/${tokenId}`;
@@ -105,51 +105,6 @@ function MyNfts() {
     }
   }, [isConnected]);
 
-  // Rewards claim here
-
-  const [rewardBalance, setRewardBalance] = useState('');
-
-  const getContractWithSigner = async () => {
-    if (!window.ethereum) {
-      throw new Error('No crypto wallet found. Please install it.');
-    }
-
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
-    const provider = new ethers.providers.Web3Provider(window.ethereum as any);
-    const signer = provider.getSigner();
-    return new ethers.Contract(CONTRACT_ADDRESS, contractABI, signer);
-  };
-
-  const withdrawRewards = async () => {
-    try {
-      const contract = await getContractWithSigner();
-      const tx = await contract.withdrawRewards();
-      await tx.wait();
-      notify.success('Rewards withdrawn successfully!');
-      fetchRewardBalance(); // Refresh balance after withdrawal
-    } catch (error) {
-      console.error('Error withdrawing rewards:', error);
-      notify.error('Failed to withdraw rewards. Please try again.');
-    }
-  };
-
-  const fetchRewardBalance = async () => {
-    if (!address) return;
-
-    try {
-      const provider = new ethers.providers.JsonRpcProvider(RPC_PROVIDER);
-      const contract = new ethers.Contract(CONTRACT_ADDRESS, contractABI, provider);
-      const reward = await contract.rewards(address);
-      setRewardBalance(ethers.utils.formatEther(reward));
-    } catch (error) {
-      console.error('Error fetching reward balance:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchRewardBalance();
-  }, [address]);
-
   return (
     <>
       <header>
@@ -188,35 +143,15 @@ function MyNfts() {
           <Box
             marginBottom="40px"
             bg="rgba(0,0,0,0.6)"
-            borderRadius="md"
+            borderRadius="2xl"
             padding="20px"
             maxW="90%"
             mx="auto"
             my="20px"
           >
-            {rewardBalance && parseFloat(rewardBalance) > 0 && (
-              <Box
-                bg="rgba(0, 0, 0, 0.1)" // Gray transparency
-                p="6"
-                borderRadius="xl"
-                textAlign="center"
-                color="white"
-                mb="4"
-              >
-                <ToastContainer />
-                <Text fontSize="2xl" mb="2">Toasties Rewards</Text>
-
-                <Box mb="4">
-                  <Text fontSize="md">Rewards to Claim: {rewardBalance} BNB</Text>
-                </Box>
-
-                <Box mb="4">
-                  <Button onClick={withdrawRewards} textColor="white" bg="gray" _hover={{ bg: 'gray.400' }}>
-                    Claim Rewards
-                  </Button>
-                </Box>
-              </Box>
-            )}
+            {/* Include ClaimToast component */}
+            <ClaimToast />
+            {/* Include ClaimToast component */}
 
             <Box marginTop="4" marginBottom="10" display="flex" alignItems="center" justifyContent="center">
               <Link
@@ -374,7 +309,6 @@ function MyNfts() {
       </Box>
     </>
   );
-
 }
 
 export default MyNfts;

@@ -196,7 +196,7 @@ const sepolia: Chain = {
 const { chains, provider } = configureChains(
   // [ mainnet, bsc, base, cronos, arbitrum, pulse, maxxChain, bsctestnet, sepolia],
 
-    [bsc],
+    [bsctestnet],
   [
     jsonRpcProvider({
       rpc: (chain) => {
