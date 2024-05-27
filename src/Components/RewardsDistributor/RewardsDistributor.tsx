@@ -387,7 +387,7 @@ const RewardsDistributor = () => {
         m={0}
         display="flex"
         flexDirection="column"
-        bg="rgba(0, 0, 0, 1)"
+        bg="rgba(255, 255, 255, 0.3)"
         bgImage="url('/images/toastBkg.png')"
         bgPosition="center"
         bgRepeat="no-repeat"
@@ -416,7 +416,7 @@ const RewardsDistributor = () => {
 
           <Box
             marginBottom="40px"
-            bg="rgba(0,0,0,0.7)"
+            bg="rgba(255, 255, 255, 0.1)"
             borderRadius="2xl"
             padding="20px"
             mx="auto"
@@ -470,7 +470,7 @@ const RewardsDistributor = () => {
           textColor="white"
           _hover={{ bg: '#e8bf72' }}
         >
-          Send Tokens
+          Send Tokens to Claim Contract
         </Button>
       </Box>
       <Box mb="4">
