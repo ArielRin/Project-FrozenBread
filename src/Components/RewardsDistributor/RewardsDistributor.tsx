@@ -8,9 +8,9 @@ import nftABI from './nftABI.json'; // Use your NFT ABI here
 import erc20ABI from './erc20ABI.json'; // Use your ERC20 ABI here
 
 const CONTRACT_ADDRESS = '0xa2092e8BFD818624C5b8EAd12464538C5067e401'; // Replace with your contract address
-const NFT_ADDRESS = '0x8dF953c17Bb6bC31e3ed397df909f7C4378B1e9e'; // Replace with your NFT contract address
-const ERC20_ADDRESS = '0x0459b48E5887b6e87a4e1c4F1eE614dBB13EFa23'; // Replace with your ERC20 token address
-const TOKEN_DECIMALS = 9;
+const NFT_ADDRESS = '0x466cc282a58333F3CD94690a520b5aFAD30506cD'; // Replace with your NFT contract address
+const ERC20_ADDRESS = '0x0e88A6839cf02f23fFE16E23cBB723FE066f8b14'; // Replace with your ERC20 token address
+const TOKEN_DECIMALS = 18;
 const BATCH_SIZE = 50; // Adjust batch size as necessary
 
 const RewardsDistributor = () => {
