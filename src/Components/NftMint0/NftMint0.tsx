@@ -4,7 +4,7 @@ const MINT_SUPPLY = 150;
 const NFTMINT_CONTRACT_ADDRESS = '0x466cc282a58333F3CD94690a520b5aFAD30506cD'; // live bsc
 const RPC_PROVIDER = 'https://bsc-dataseed.binance.org/'; // bsc rpc
 const EXPLORER_LINK = 'https://bscscan.com/'; //BSC explorer
-// 
+//
 // const NFTMINT_CONTRACT_ADDRESS = '0x6aD7cCE6eF4AC1EaB35c6e0068B5adCf8561870D'; //testing on max
 // const RPC_PROVIDER = 'https://mainrpc.maxxchain.org/'; //max rpc
 // const EXPLORER_LINK = 'https://scan.maxxchain.org/'; //max rpc
@@ -27,6 +27,8 @@ import {
 } from '@chakra-ui/react';
 
 import Footer from '../Footer/Footer';
+import ClaimToast from '../Claim/ClaimToast';
+
 
 import './mintNftStyles.css';
 
@@ -179,19 +181,30 @@ function NftMint() {
         >
           <Box
             bg="rgba(0,0,0,0)"
-            padding="20px"
+            padding="5px"
             width="100%"
             mx="auto"
-            marginTop="60px"
+            marginTop="0px"
           ></Box>
 
+                  <Box display="flex" justifyContent="center">
+                    <ClaimToast />
+                  </Box>
+
+
           <Box
+            marginBottom="40px"
             bg="rgba(0,0,0,0.6)"
-            borderRadius="md"
+            borderRadius="2xl"
             padding="20px"
-            maxW="600px"
             mx="auto"
-            my="20px"
+            my="10px"
+            boxShadow="xl"
+            maxWidth="800px"
+            width="100%"
+            textAlign="center"
+            border="1px"
+            borderColor="#a7801a"
           >
             <div>
               <Text className="pricecosthead" style={{ color: 'white', textAlign: 'center', fontWeight: 'bolder' }}>

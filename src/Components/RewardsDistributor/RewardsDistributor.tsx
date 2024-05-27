@@ -3,15 +3,15 @@ import { ethers } from 'ethers';
 import { useAccount } from 'wagmi';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { Button, Text, Box, Input, InputGroup, InputRightElement, useToast } from '@chakra-ui/react';
-import contractABI from './splitterABI.json'; // Use your ABI here
-import nftABI from './nftABI.json'; // Use your NFT ABI here
-import erc20ABI from './erc20ABI.json'; // Use your ERC20 ABI here
+import contractABI from './splitterABI.json';
+import nftABI from './nftABI.json';
+import erc20ABI from './erc20ABI.json';
 
-const CONTRACT_ADDRESS = '0xa2092e8BFD818624C5b8EAd12464538C5067e401'; // Replace with your contract address
-const NFT_ADDRESS = '0x8dF953c17Bb6bC31e3ed397df909f7C4378B1e9e'; // Replace with your NFT contract address
-const ERC20_ADDRESS = '0x0459b48E5887b6e87a4e1c4F1eE614dBB13EFa23'; // Replace with your ERC20 token address
+const CONTRACT_ADDRESS = '0xa2092e8BFD818624C5b8EAd12464538C5067e401';
+const NFT_ADDRESS = '0x8dF953c17Bb6bC31e3ed397df909f7C4378B1e9e';
+const ERC20_ADDRESS = '0x0459b48E5887b6e87a4e1c4F1eE614dBB13EFa23';
 const TOKEN_DECIMALS = 9;
-const BATCH_SIZE = 50; // Adjust batch size as necessary
+const BATCH_SIZE = 50;
 
 const RewardsDistributor = () => {
   const [rewardAmount, setRewardAmount] = useState<string>('');
@@ -20,6 +20,7 @@ const RewardsDistributor = () => {
   const [tokenBalance, setTokenBalance] = useState<ethers.BigNumber>(ethers.BigNumber.from(0));
   const [amountPerNFT, setAmountPerNFT] = useState<string>('');
   const [totalAllocatedRewards, setTotalAllocatedRewards] = useState<ethers.BigNumber>(ethers.BigNumber.from(0));
+  const [claimedRewards, setClaimedRewards] = useState<ethers.BigNumber>(ethers.BigNumber.from(0));
   const [isValidAmount, setIsValidAmount] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [contractOwner, setContractOwner] = useState<string>('');
@@ -131,21 +132,51 @@ const RewardsDistributor = () => {
     }
   };
 
+  const fetchClaimedRewards = async (addresses: string[]) => {
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum as any);
+      const contract = new ethers.Contract(CONTRACT_ADDRESS, contractABI, provider);
+
+      let totalClaimed = ethers.BigNumber.from(0);
+      for (const addr of addresses) {
+        const claimed = await contract.getClaimedRewards(addr);
+        totalClaimed = totalClaimed.add(claimed);
+      }
+
+      setClaimedRewards(totalClaimed);
+      return totalClaimed;
+    } catch (error) {
+      console.error('Error fetching claimed rewards:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to fetch claimed rewards. Please try again.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+      return ethers.BigNumber.from(0);
+    }
+  };
+
   const calculateAmountPerNFT = async () => {
     const balance = await fetchTokenBalance();
     const totalAllocated = await fetchTotalAllocatedRewards();
-    const unallocated = balance.sub(totalAllocated);
     const totalSupply = await fetchTotalSupply();
-    if (totalSupply.gt(0)) {
-      const balancePerNFT = unallocated.div(totalSupply).div(ethers.BigNumber.from(10).pow(TOKEN_DECIMALS)).toString();
-      setAmountPerNFT(balancePerNFT);
-      setRewardAmount(balancePerNFT); // Set rewardAmount to max by default
-    }
+
+    const holderCounts = await fetchNFTHolders();
+    const uniqueHolders = Object.keys(holderCounts);
+    const totalClaimed = await fetchClaimedRewards(uniqueHolders);
+
+    const unallocated = balance.add(totalClaimed).sub(totalAllocated);
+    const a2 = parseFloat(ethers.utils.formatUnits(unallocated, TOKEN_DECIMALS));
+    const amountPerNFTValue = totalSupply.gt(0) ? (a2 / totalSupply.toNumber()).toFixed(0) : '0';
+
+    setAmountPerNFT(amountPerNFTValue);
+    setRewardAmount(amountPerNFTValue); // Set rewardAmount to max by default
   };
 
   const fetchNFTHolders = async () => {
     try {
-      console.log('Fetching NFT holders...');
       const nftContract = await getNFTContract();
       const totalSupply = await nftContract.totalSupply().then((supply: ethers.BigNumber) => supply.toNumber());
       const holderCounts: { [key: string]: number } = {};
@@ -161,7 +192,6 @@ const RewardsDistributor = () => {
       }
 
       await Promise.all(fetchPromises);
-      console.log('Fetched NFT holders with counts:', holderCounts);
       return holderCounts;
     } catch (error) {
       console.error('Error fetching NFT holders:', error);
@@ -329,7 +359,11 @@ const RewardsDistributor = () => {
     }
   };
 
-  const a2 = (parseFloat(ethers.utils.formatUnits(tokenBalance, TOKEN_DECIMALS)) - parseFloat(ethers.utils.formatUnits(totalAllocatedRewards, TOKEN_DECIMALS))).toFixed(2);
+  const a2 = (
+    parseFloat(ethers.utils.formatUnits(tokenBalance, TOKEN_DECIMALS)) +
+    parseFloat(ethers.utils.formatUnits(claimedRewards, TOKEN_DECIMALS )) -
+    parseFloat(ethers.utils.formatUnits(totalAllocatedRewards, TOKEN_DECIMALS))
+  ).toFixed(2);
 
   return (
     <Box>
@@ -349,7 +383,7 @@ const RewardsDistributor = () => {
       </Box>
       <Box mb="4">
         <Text fontSize="md">Step 1: Connect as contract owner to the dapp.</Text>
-        <Text fontSize="md">Step 2: Send Toast tokens anytime from page or send to contract address.</Text>
+        <Text fontSize="md">Step 2: Send Toast tokens anytime from this page or send to contract address directly.</Text>
         <Text fontSize="md">Step 3: Set the amount of Tokens to distribute to NFT Claims.</Text>
         <Text fontSize="md">Step 4: Tap the Process Claims Button and confirm transaction.</Text>
         <Text fontSize="md">Note: Tokens will then be allocated for user claims</Text>
@@ -375,7 +409,7 @@ const RewardsDistributor = () => {
       </Box>
       <Box mb="4">
         <Text fontSize="md">Unallocated Tokens in Contract: {a2} Toasty</Text>
-        <Text fontSize="md">Total NFTs: {ethers.utils.formatUnits(totalSupply, 0)}</Text>
+        <Text fontSize="md">Total NFTs: {totalSupply.toString()}</Text>
         <Text fontSize="md">Max tokens you can process per NFT: {amountPerNFT} Toasty</Text>
         <InputGroup mb="2">
           <Input
@@ -408,7 +442,7 @@ const RewardsDistributor = () => {
         </Button>
         <Text fontSize="sm">Note: You can disburse less than max if needed.</Text>
         <Box mb="4">
-          <Text fontSize="md">Total Allocated Tokens awaiting user claims: {ethers.utils.formatUnits(totalAllocatedRewards, TOKEN_DECIMALS)} Toasty</Text>
+          <Text fontSize="md">Total Allocated to claim to date: {ethers.utils.formatUnits(totalAllocatedRewards, TOKEN_DECIMALS)} Toasty</Text>
           <Text fontSize="md">Total Toast Balance in Contract: {ethers.utils.formatUnits(tokenBalance, TOKEN_DECIMALS)} Toasty</Text>
         </Box>
       </Box>

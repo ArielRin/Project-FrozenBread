@@ -21,7 +21,7 @@ import ClaimToast from '../Claim/ClaimToast';
 
 const NFTMINT_CONTRACT_ADDRESS = '0x466cc282a58333F3CD94690a520b5aFAD30506cD';
 const RPC_PROVIDER = 'https://bsc-dataseed.binance.org/';
-const EXPLORER_LINK = 'https://bscscan.com/'; 
+const EXPLORER_LINK = 'https://bscscan.com/';
 
 const getExplorerLink = (tokenId: number) => `${EXPLORER_LINK}token/${NFTMINT_CONTRACT_ADDRESS}?a=${tokenId}`;
 const getMarketplaceLink = (tokenId: number) => `https://element.market/assets/bsc/${NFTMINT_CONTRACT_ADDRESS}/${tokenId}`;
@@ -140,19 +140,34 @@ function MyNfts() {
           bgRepeat="no-repeat"
           bgSize="cover"
         >
+
+          <Box
+            bg="rgba(0,0,0,0)"
+            padding="5px"
+            width="100%"
+            mx="auto"
+            marginTop="0px"
+          ></Box>
+
+          <Box display="flex" justifyContent="center">
+            <ClaimToast />
+          </Box>
+
+
           <Box
             marginBottom="40px"
             bg="rgba(0,0,0,0.6)"
             borderRadius="2xl"
             padding="20px"
-            maxW="90%"
             mx="auto"
-            my="20px"
+            my="10px"
+            boxShadow="xl"
+            maxWidth="800px"
+            width="100%"
+            textAlign="center"
+            border="1px"
+            borderColor="#a7801a"
           >
-            {/* Include ClaimToast component */}
-            <ClaimToast />
-            {/* Include ClaimToast component */}
-
             <Box marginTop="4" marginBottom="10" display="flex" alignItems="center" justifyContent="center">
               <Link
                 style={{
@@ -212,9 +227,11 @@ function MyNfts() {
                     key={tokenId}
                     bg="rgba(0, 0, 0, 1)"
                     p="4"
-                    borderRadius="xl"
+                    borderRadius="2xl"
                     position="relative"
                     overflow="hidden"
+                    border="1px"
+                    borderColor="#a7801a"
                     _hover={{
                       '.overlay': {
                         opacity: 1,
