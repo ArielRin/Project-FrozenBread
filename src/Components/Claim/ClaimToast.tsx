@@ -3,9 +3,9 @@ import { ethers } from 'ethers';
 import { useAccount } from 'wagmi';
 import { Box, Flex, Button, Text, useToast, Image } from '@chakra-ui/react';
 
-import contractABI from './splitterABI.json'; // Use your ABI here
+import contractABI from './splitterABI.json';
 
-const CONTRACT_ADDRESS = '0x88a91014AFc11533c85551379DD06F795F833CF6'; // Replace with your contract address
+const CONTRACT_ADDRESS = '0xa2092e8BFD818624C5b8EAd12464538C5067e401';
 const TOKEN_DECIMALS = 9;
 
 const ClaimRewards = () => {
@@ -49,7 +49,7 @@ const ClaimRewards = () => {
         duration: 5000,
         isClosable: true,
       });
-      fetchRewardBalance(); // Refresh the reward balance after claiming
+      fetchRewardBalance();
     } catch (error) {
       console.error('Error claiming rewards:', error);
       toast({
