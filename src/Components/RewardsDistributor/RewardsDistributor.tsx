@@ -2,15 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { useAccount } from 'wagmi';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { Button, Text, Box, Input, InputGroup, InputRightElement, useToast } from '@chakra-ui/react';
+import { Button, Link, Text, Box, Input, Image, InputGroup, InputRightElement, useToast } from '@chakra-ui/react';
 import contractABI from './splitterABI.json';
 import nftABI from './nftABI.json';
 import erc20ABI from './erc20ABI.json';
 
-const CONTRACT_ADDRESS = '0xa2092e8BFD818624C5b8EAd12464538C5067e401';
-const NFT_ADDRESS = '0x8dF953c17Bb6bC31e3ed397df909f7C4378B1e9e';
-const ERC20_ADDRESS = '0x0459b48E5887b6e87a4e1c4F1eE614dBB13EFa23';
-const TOKEN_DECIMALS = 9;
+import Footer from '../Footer/Footer';
+
+
+const CONTRACT_ADDRESS = '0x9476C61BdeBEc61e95D5383ac6a793f9A69085A7'; // bsc
+// const CONTRACT_ADDRESS = '0xa2092e8BFD818624C5b8EAd12464538C5067e401'; //bsctestnet
+const NFT_ADDRESS = '0x466cc282a58333F3CD94690a520b5aFAD30506cD';
+const ERC20_ADDRESS = '0x0e88A6839cf02f23fFE16E23cBB723FE066f8b14';
+const TOKEN_DECIMALS = 18;
 const BATCH_SIZE = 50;
 
 const RewardsDistributor = () => {
@@ -366,27 +370,87 @@ const RewardsDistributor = () => {
   ).toFixed(2);
 
   return (
+    <>
+      <header>
+        <div className="header-logo">
+          <Link href="/" isExternal>
+            <Image src="/images/logotoast.png" alt="Toast Logo" width="150px" />
+          </Link>
+        </div>
+        <div className="connect-button">
+          <ConnectButton />
+        </div>
+      </header>
+      <Box
+        flex={1}
+        p={0}
+        m={0}
+        display="flex"
+        flexDirection="column"
+        bg="rgba(0, 0, 0, 1)"
+        bgImage="url('/images/toastBkg.png')"
+        bgPosition="center"
+        bgRepeat="no-repeat"
+        bgSize="cover"
+      >
+        <Box
+          flex={1}
+          p={0}
+          m={0}
+          display="flex"
+          flexDirection="column"
+          bg="rgba(0, 0, 0, 0.9)"
+          bgPosition="center"
+          bgRepeat="no-repeat"
+          bgSize="cover"
+        >
+
+          <Box
+            bg="rgba(0,0,0,0)"
+            padding="5px"
+            width="100%"
+            mx="auto"
+            marginTop="0px"
+          >
+          </Box>
+
+          <Box
+            marginBottom="40px"
+            bg="rgba(0,0,0,0.7)"
+            borderRadius="2xl"
+            padding="20px"
+            mx="auto"
+            my="10px"
+            boxShadow="xl"
+            maxWidth="600px"
+            width="100%"
+            textAlign="left"
+            border="2px"
+            borderColor="#a7801a"
+          >
+
+
+
     <Box>
-      <ConnectButton />
-      <Text fontSize="2xl" mb="4">Toast Champions Claim Processing</Text>
+      <Text style={{ fontWeight: 'bolder' }}color="white" fontSize="3xl" mb="4">Toast Champions Claim Processing</Text>
       <Box mb="4">
         {address && (
           <>
-            <Text color={isOwner ? 'green.500' : 'red.500'}>
+            <Text fontSize="sm" style={{ fontWeight: 'bold' }} color={isOwner ? 'green.500' : 'red.500'}>
               {isOwner ? `Welcome Contract Owner: ${address}` : `Connected wallet is not the owner of the contract: ${address}`}
             </Text>
           </>
         )}
       </Box>
       <Box mb="4">
-        <Text style={{ fontWeight: 'bold' }} fontSize="md">NFT Rewards Contract: {CONTRACT_ADDRESS}</Text>
+        <Text   style={{ color: 'white' ,fontWeight: 'bold' }} fontSize="sm">NFT Rewards Contract: {CONTRACT_ADDRESS}</Text>
       </Box>
       <Box mb="4">
-        <Text fontSize="md">Step 1: Connect as contract owner to the dapp.</Text>
-        <Text fontSize="md">Step 2: Send Toast tokens anytime from this page or send to contract address directly.</Text>
-        <Text fontSize="md">Step 3: Set the amount of Tokens to distribute to NFT Claims.</Text>
-        <Text fontSize="md">Step 4: Tap the Process Claims Button and confirm transaction.</Text>
-        <Text fontSize="md">Note: Tokens will then be allocated for user claims</Text>
+        <Text color="white"  fontSize="sm">Step 1: Connect as contract owner to the dapp.</Text>
+        <Text color="white"  fontSize="sm">Step 2: Send Toast tokens anytime from this page or send to contract address directly.</Text>
+        <Text color="white"  fontSize="sm">Step 3: Set the amount of Tokens to distribute to NFT Claims.</Text>
+        <Text color="white"  fontSize="sm">Step 4: Tap the Process Claims Button and confirm transaction.</Text>
+        <Text color="white"  fontSize="sm">Note: Tokens will then be allocated for user claims</Text>
       </Box>
       <Box mb="4">
         <InputGroup mb="2">
@@ -394,38 +458,41 @@ const RewardsDistributor = () => {
             placeholder="Tokens you want to send to this contract"
             value={erc20Amount}
             onChange={(e) => setErc20Amount(e.target.value)}
+            textColor="white"
+            borderColor="#a7801a"
           />
           <InputRightElement width="6rem">
           </InputRightElement>
         </InputGroup>
         <Button
           onClick={handleApproveAndSendTokens}
-          bg="gray"
+          bg="#a7801a"
           textColor="white"
-          _hover={{ bg: 'gray.400' }}
+          _hover={{ bg: '#e8bf72' }}
         >
           Send Tokens
         </Button>
       </Box>
       <Box mb="4">
-        <Text fontSize="md">Unallocated Tokens in Contract: {a2} Toasty</Text>
-        <Text fontSize="md">Total NFTs: {totalSupply.toString()}</Text>
-        <Text fontSize="md">Max tokens you can process per NFT: {amountPerNFT} Toasty</Text>
+        <Text color="white"  fontSize="md">Unallocated Tokens in Contract: {a2} Toasty</Text>
+        <Text color="white"  fontSize="md">Total NFTs: {totalSupply.toString()}</Text>
+        <Text color="white"  fontSize="md">Max tokens you can process per NFT: {amountPerNFT} Toasty</Text>
         <InputGroup mb="2">
           <Input
             placeholder="Reward Amount (Whole Tokens)"
             value={rewardAmount}
             onChange={handleRewardAmountChange}
-            borderColor={isValidAmount ? 'inherit' : 'red'}
+            textColor="white"
+            borderColor={isValidAmount ? '#a7801a' : 'red'}
           />
           <InputRightElement width="6rem">
             <Button
               h="1.75rem"
               size="sm"
               onClick={handleMaxButtonClick}
-              bg="gray"
+              bg="#a7801a"
               textColor="white"
-              _hover={{ bg: 'gray.400' }}
+              _hover={{ bg: '#e8bf72' }}
             >
               Set Max
             </Button>
@@ -434,19 +501,27 @@ const RewardsDistributor = () => {
         <Button
           onClick={handleBatchRewards}
           textColor="white"
-          bg={isValidAmount ? 'gray' : 'red'}
-          _hover={{ bg: isValidAmount ? 'gray.400' : 'red.400' }}
+          bg={isValidAmount ? '#a7801a' : 'red'}
+          _hover={{ bg: isValidAmount ? '#e8bf72' : 'red' }}
           isDisabled={!isValidAmount}
         >
           {isValidAmount ? 'Process Claims' : errorMessage}
         </Button>
-        <Text fontSize="sm">Note: You can disburse less than max if needed.</Text>
+        <Text color="white"  fontSize="sm">Note: You can disburse less than max if needed.</Text>
         <Box mb="4">
-          <Text fontSize="md">Total Allocated to claim to date: {ethers.utils.formatUnits(totalAllocatedRewards, TOKEN_DECIMALS)} Toasty</Text>
-          <Text fontSize="md">Total Toast Balance in Contract: {ethers.utils.formatUnits(tokenBalance, TOKEN_DECIMALS)} Toasty</Text>
+          <Text color="white"  fontSize="md">Total Allocated to claim to date: {ethers.utils.formatUnits(totalAllocatedRewards, TOKEN_DECIMALS)} Toasty</Text>
+          <Text color="white"  fontSize="md">Total Toast Balance in Contract: {ethers.utils.formatUnits(tokenBalance, TOKEN_DECIMALS)} Toasty</Text>
         </Box>
       </Box>
     </Box>
+
+
+
+      </Box>
+    <Footer />
+  </Box>
+</Box>
+</>
   );
 };
 

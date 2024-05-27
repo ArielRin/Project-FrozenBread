@@ -5,8 +5,8 @@ import { Box, Flex, Button, Text, useToast, Image } from '@chakra-ui/react';
 
 import contractABI from './splitterABI.json';
 
-const CONTRACT_ADDRESS = '0xa2092e8BFD818624C5b8EAd12464538C5067e401';
-const TOKEN_DECIMALS = 9;
+const CONTRACT_ADDRESS = '0x9476C61BdeBEc61e95D5383ac6a793f9A69085A7';
+const TOKEN_DECIMALS = 18;
 const TOKEN_ADDRESS = '0x0e88A6839cf02f23fFE16E23cBB723FE066f8b14';
 
 const ClaimRewards = () => {
