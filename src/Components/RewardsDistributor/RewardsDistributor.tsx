@@ -374,7 +374,7 @@ const RewardsDistributor = () => {
       <header>
         <div className="header-logo">
           <Link href="/" isExternal>
-            <Image src="/images/logotoast.png" alt="Alpha7 Logo" width="150px" />
+            <Image src="/images/logotoast.png" alt="Toasty Logo" width="150px" />
           </Link>
         </div>
         <div className="connect-button">
@@ -432,7 +432,7 @@ const RewardsDistributor = () => {
 
 
     <Box>
-      <Text style={{ fontWeight: 'bolder' }}color="white" fontSize="3xl" mb="4">Alpha7 Claim Processing</Text>
+      <Text style={{ fontWeight: 'bolder' }}color="white" fontSize="3xl" mb="4">Toasty Claim Processing</Text>
       <Box mb="4">
         {address && (
           <>
@@ -447,7 +447,7 @@ const RewardsDistributor = () => {
       </Box>
       <Box mb="4">
         <Text color="white"  fontSize="sm">Step 1: Connect as contract owner to the dapp.</Text>
-        <Text color="white"  fontSize="sm">Step 2: Send Alpha7 tokens anytime from this page or send to contract address directly.</Text>
+        <Text color="white"  fontSize="sm">Step 2: Send Toasty tokens anytime from this page or send to contract address directly.</Text>
         <Text color="white"  fontSize="sm">Step 3: Set the amount of Tokens to distribute to NFT Claims.</Text>
         <Text color="white"  fontSize="sm">Step 4: Tap the Process Claims Button and confirm transaction.</Text>
         <Text color="white"  fontSize="sm">Note: Tokens will then be allocated for user claims</Text>
@@ -474,9 +474,9 @@ const RewardsDistributor = () => {
         </Button>
       </Box>
       <Box mb="4">
-        <Text color="white"  fontSize="md">Unallocated Tokens in Contract: {a2} Alpha7</Text>
+        <Text color="white"  fontSize="md">Unallocated Tokens in Contract: {a2} Toasty</Text>
         <Text color="white"  fontSize="md">Total NFTs: {totalSupply.toString()}</Text>
-        <Text color="white"  fontSize="md">Max tokens you can process per NFT: {amountPerNFT} Alpha7</Text>
+        <Text color="white"  fontSize="md">Max tokens you can process per NFT: {amountPerNFT} Toasty</Text>
         <InputGroup mb="2">
           <Input
             placeholder="Reward Amount (Whole Tokens)"
@@ -509,8 +509,8 @@ const RewardsDistributor = () => {
         </Button>
         <Text color="white"  fontSize="sm">Note: You can disburse less than max if needed.</Text>
         <Box mb="4">
-          <Text color="white"  fontSize="md">Total Allocated to claim to date: {ethers.utils.formatUnits(totalAllocatedRewards, TOKEN_DECIMALS)} Alpha7</Text>
-          <Text color="white"  fontSize="md">Total Alpha7 Balance in Contract: {ethers.utils.formatUnits(tokenBalance, TOKEN_DECIMALS)} Alpha7</Text>
+          <Text color="white"  fontSize="md">Total Allocated to claim to date: {ethers.utils.formatUnits(totalAllocatedRewards, TOKEN_DECIMALS)} Toasty</Text>
+          <Text color="white"  fontSize="md">Total Toasty Balance in Contract: {ethers.utils.formatUnits(tokenBalance, TOKEN_DECIMALS)} Toasty</Text>
         </Box>
       </Box>
     </Box>
